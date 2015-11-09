@@ -11,7 +11,10 @@ import urllib
 
 def printSiblings(soupBowl):
     numSiblings = 0
-    thisSiblings = soupBowl.next_siblings
+    try:
+        thisSiblings = soupBowl.next_siblings
+    except AttributeError:
+        return -2
     for eachSibling in thisSiblings:
         numSiblings += 1
         print "\n\n-> "+str(eachSibling)
@@ -56,8 +59,12 @@ def answer(firstContent, numSiblings):
 if __name__ == "__main__":
     print("Testing Element Extraction")
     print("________________________")
-    firstContent = "Software Engineer"
-    extractedMatchingElement = answer(firstContent, 6)
+    firstContent = "Full professional proficiency"
+    extractedMatchingElement = answer(firstContent, 3)
+    # Exit if the element returns -1
+    if extractedMatchingElement == -1:
+        print "Matching Expressions not found"
+        exit()
     # Printing extracted matching element
     print(extractedMatchingElement)
     # Printing siblings
